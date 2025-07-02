@@ -1,154 +1,513 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design Tools Hub</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Tools Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        /* Custom gradient text for hero section */
+        .gradient-text {
+            background: linear-gradient(to right, #4f46e5, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Active state for navigation links */
+        .nav-link.active {
+            background-color: #3730a3; /* indigo-800 */
+            color: white;
+        }
+        /* Hide scrollbar for demo purposes */
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    </style>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <i class="fas fa-palette"></i>
-        <span>Design Tools Hub</span>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="fonts.html">Font Tools</a></li>
-        <li><a href="motion.html">Motion Design</a></li>
-      </ul>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+<body class="antialiased text-slate-800">
+
+    <!-- Header and Navigation -->
+    <header class="bg-indigo-700 shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-white font-bold text-xl flex items-center gap-2">
+                        <i class="fas fa-palette"></i>
+                        <span>Design Tools Hub</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 active" data-page="home">Home</a>
+                        <a href="#fonts" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-page="fonts">Font Tools</a>
+                        <a href="#motion" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-page="motion">Motion Design</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-button" type="button" class="bg-indigo-700 inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 active" data-page="home">Home</a>
+                <a href="#fonts" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200" data-page="fonts">Font Tools</a>
+                <a href="#motion" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200" data-page="motion">Motion Design</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Home Page Content -->
+        <div id="page-home" class="page-content">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Hero Section -->
+                <section class="lg:col-span-3 bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-1 text-center md:text-left">
+                            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">
+                                <span class="gradient-text">Design Tools Hub</span>
+                            </h1>
+                            <p class="text-lg text-slate-600 mb-6">
+                                Discover the best tools and resources for font design and motion graphics. From beginner-friendly options to professional-grade software.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                <a href="#fonts" data-page="fonts" class="nav-link-jumper bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 flex items-center justify-center gap-2">
+                                    <i class="fas fa-font"></i> Explore Font Tools
+                                </a>
+                                <a href="#motion" data-page="motion" class="nav-link-jumper bg-pink-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-pink-600 transition-all duration-200 flex items-center justify-center gap-2">
+                                    <i class="fas fa-play"></i> Motion Expressions
+                                </a>
+                            </div>
+                        </div>
+                        <div class="relative hidden lg:block">
+                            <i class="fas fa-font text-8xl text-indigo-200 absolute -top-16 -left-16 transform rotate-12"></i>
+                            <i class="fas fa-video text-7xl text-pink-200 absolute -bottom-12 -right-12 transform -rotate-12"></i>
+                            <i class="fas fa-code text-6xl text-slate-200 absolute top-1/2 -right-20 transform rotate-6"></i>
+                            <img src="https://placehold.co/400x300/e0e7ff/4338ca?text=Creative+Tools" class="rounded-2xl shadow-xl" alt="Creative Tools Placeholder">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section class="lg:col-span-3 bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h2 class="text-3xl font-bold text-center mb-8">What You'll Find Here</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-center hover:shadow-lg hover:border-indigo-300 transition-all duration-300">
+                            <i class="fas fa-font text-4xl text-indigo-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Font Design Tools</h3>
+                            <p class="text-slate-600">Comprehensive comparison of font creation software, from free options to professional suites.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-center hover:shadow-lg hover:border-pink-300 transition-all duration-300">
+                            <i class="fas fa-magic text-4xl text-pink-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Motion Expressions</h3>
+                            <p class="text-slate-600">Ready-to-use After Effects expressions for dynamic animations. Copy, paste, and bring your designs to life.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-center hover:shadow-lg hover:border-green-300 transition-all duration-300">
+                            <i class="fas fa-graduation-cap text-4xl text-green-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Student-Friendly</h3>
+                            <p class="text-slate-600">Curated recommendations for students and beginners, including free and budget-friendly options.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Stats Section -->
+                <section class="lg:col-span-1 bg-indigo-600 text-white p-8 rounded-2xl shadow-sm flex flex-col justify-center items-center text-center">
+                    <div class="stat-item mb-6">
+                        <div class="text-5xl font-extrabold">16+</div>
+                        <div class="text-lg text-indigo-200">Font Tools</div>
+                    </div>
+                    <div class="stat-item mb-6">
+                        <div class="text-5xl font-extrabold">20+</div>
+                        <div class="text-lg text-indigo-200">Motion Expressions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="text-5xl font-extrabold">100%</div>
+                        <div class="text-lg text-indigo-200">Free Resource</div>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <section class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-center items-center text-center">
+                    <h2 class="text-3xl font-bold mb-2">Ready to Create?</h2>
+                    <p class="text-slate-600 mb-6">Start exploring the tools that will elevate your design workflow.</p>
+                    <a href="#fonts" data-page="fonts" class="nav-link-jumper bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 flex items-center gap-2">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </a>
+                </section>
+            </div>
+        </div>
+
+        <!-- Fonts Page Content -->
+        <div id="page-fonts" class="page-content hidden">
+            <!-- Fonts Header -->
+            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-6">
+                <h1 class="text-4xl font-extrabold text-indigo-700 flex items-center gap-3"><i class="fas fa-font"></i> Font Design Tools</h1>
+                <p class="text-slate-600 mt-2">Comprehensive comparison of font creation software for designers of all levels.</p>
+            </section>
+            
+            <!-- Tools Table Section -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-6">
+                <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
+                    <div class="relative w-full md:w-1/3">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="fontSearchInput" placeholder="Search tools..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                    </div>
+                    <div id="font-filter-buttons" class="flex flex-wrap gap-2 justify-center">
+                        <button class="filter-btn bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="all">All</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="free">Free</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="paid">Paid</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="macos">macOS</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="windows">Windows</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="web">Web</button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table id="fontTable" class="w-full text-left">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="p-4 font-bold text-slate-600 cursor-pointer" onclick="sortTable(0)">Tool <i class="fas fa-sort text-slate-400 ml-1"></i></th>
+                                <th class="p-4 font-bold text-slate-600 cursor-pointer" onclick="sortTable(1)">Platform <i class="fas fa-sort text-slate-400 ml-1"></i></th>
+                                <th class="p-4 font-bold text-slate-600 cursor-pointer" onclick="sortTable(2)">Price <i class="fas fa-sort text-slate-400 ml-1"></i></th>
+                                <th class="p-4 font-bold text-slate-600 hidden md:table-cell">Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Font data will be injected here by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Recommendations Section -->
+            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-3xl font-bold text-center mb-8">Recommendations for Students</h2>
+                <div class="recommendations-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Recommendation cards will be injected here by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Motion Page Content -->
+        <div id="page-motion" class="page-content hidden">
+            <!-- Motion Header -->
+            <section class="text-white p-8 rounded-2xl shadow-lg mb-6 bg-gradient-to-br from-purple-600 to-indigo-600">
+                <h1 class="text-4xl font-extrabold flex items-center gap-3"><i class="fas fa-play-circle"></i> Motion Design Expressions</h1>
+                <p class="opacity-80 mt-2">Essential After Effects expressions for dynamic motion graphics and animation workflows.</p>
+                <div class="flex flex-wrap gap-3 mt-4">
+                    <span class="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full">20+ Expressions</span>
+                    <span class="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full">Copy & Paste Ready</span>
+                    <span class="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full">Beginner - Advanced</span>
+                </div>
+            </section>
+            
+            <!-- Expression Controls -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
+                <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                    <div class="relative w-full md:w-1/3">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="motionSearchInput" placeholder="Search expressions..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                    </div>
+                    <div id="motion-filter-buttons" class="flex flex-wrap gap-2 justify-center">
+                        <button class="filter-btn bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="all">All</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="basic">Basic</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="loops">Loops</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="effects">Effects</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="advanced">Advanced</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Expressions Grid -->
+            <div id="expressionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Expression cards will be injected here by JS -->
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <div class="font-bold text-lg text-white flex items-center justify-center gap-2 mb-2">
+                <i class="fas fa-palette"></i>
+                <span>Design Tools Hub</span>
+            </div>
+            <p>A curated collection of design tools and resources.</p>
+            <p class="text-sm mt-4">&copy; 2024 Design Tools Hub. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Copy Toast Notification -->
+    <div id="copyToast" class="fixed bottom-10 right-10 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 ease-out">
+        <i class="fas fa-check-circle"></i>
+        <span>Copied to clipboard!</span>
     </div>
-  </nav>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1 class="hero-title">
-          <span class="gradient-text">Design Tools</span> 
-          <span class="hero-subtitle">for Creative Professionals</span>
-        </h1>
-        <p class="hero-description">
-          Discover the best tools and resources for font design and motion graphics. 
-          From beginner-friendly options to professional-grade software.
-        </p>
-        <div class="hero-buttons">
-          <a href="fonts.html" class="btn btn-primary">
-            <i class="fas fa-font"></i>
-            Explore Font Tools
-          </a>
-          <a href="motion.html" class="btn btn-secondary">
-            <i class="fas fa-play"></i>
-            Motion Expressions
-          </a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="floating-card">
-          <i class="fas fa-font"></i>
-          <span>Typography</span>
-        </div>
-        <div class="floating-card">
-          <i class="fas fa-video"></i>
-          <span>Animation</span>
-        </div>
-        <div class="floating-card">
-          <i class="fas fa-code"></i>
-          <span>Expressions</span>
-        </div>
-      </div>
-    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DATA ---
+            const fontData = [
+                { name: 'Glyphs', url: 'https://glyphsapp.com', platform: ['macos'], price: '€300', type: 'Desktop', notes: 'Professional, industry standard', tags: 'macos paid desktop professional' },
+                { name: 'Glyphs Mini', url: 'https://glyphsapp.com', platform: ['macos'], price: '€40', type: 'Desktop', notes: 'Affordable entry version', tags: 'macos paid desktop beginner' },
+                { name: 'RoboFont', url: 'https://robofont.com', platform: ['macos'], price: '€500', type: 'Desktop', notes: 'Modular, scriptable', tags: 'macos paid desktop professional scriptable' },
+                { name: 'FontLab', url: 'https://www.fontlab.com', platform: ['macos', 'windows'], price: '€500', type: 'Desktop', notes: 'Full-featured professional tool', tags: 'macos windows paid desktop professional' },
+                { name: 'FontForge', url: 'https://fontforge.github.io', platform: ['windows', 'macos', 'linux'], price: 'Free', type: 'Desktop', notes: 'Powerful, steeper learning curve', tags: 'windows macos linux free desktop opensource' },
+                { name: 'BirdFont', url: 'https://birdfont.org', platform: ['windows', 'macos', 'linux'], price: 'Free', type: 'Desktop', notes: 'User-friendly, great for beginners', tags: 'windows macos linux free desktop beginner' },
+                { name: 'FontSelf', url: 'https://www.fontself.com/store', platform: ['windows', 'macos', 'ipad'], price: '€40–80', type: 'Plugin/App', notes: 'Easy font creation in Illustrator', tags: 'windows macos ipad paid plugin illustrator' },
+                { name: 'Glyphr Studio', url: 'https://www.glyphrstudio.com', platform: ['web'], price: 'Free', type: 'Web', notes: 'Great free option', tags: 'web free' },
+                { name: 'FontStruct', url: 'https://fontstruct.com', platform: ['web'], price: 'Free', type: 'Web', notes: 'Grid-based font design', tags: 'web free grid-based' },
+                { name: 'Calligraphr', url: 'https://www.calligraphr.com/en/pricing/', platform: ['web'], price: 'Freemium', type: 'Web', notes: 'Handwriting to font conversion', tags: 'web freemium handwriting' },
+                { name: 'FontCreator', url: 'https://www.high-logic.com/', platform: ['windows'], price: '€50–200', type: 'Desktop', notes: 'Feature-rich, Windows only', tags: 'windows paid desktop feature-rich' },
+            ];
 
-    <section class="features">
-      <div class="container">
-        <h2 class="section-title">What You'll Find Here</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-font"></i>
-            </div>
-            <h3>Font Design Tools</h3>
-            <p>Comprehensive comparison of font creation software, from free options to professional suites. Perfect for typography enthusiasts and students.</p>
-            <a href="fonts.html" class="feature-link">Explore Tools <i class="fas fa-arrow-right"></i></a>
-          </div>
+            const recommendationData = [
+                { icon: 'fas fa-seedling', color: 'green', title: 'Beginners', items: ['BirdFont', 'FontStruct', 'Glyphr Studio', 'Calligraphr'] },
+                { icon: 'fab fa-adobe', color: 'red', title: 'Adobe Users', items: ['FontSelf for Illustrator integration'] },
+                { icon: 'fab fa-apple', color: 'slate', title: 'Mac (Advanced)', items: ['Glyphs Mini for entry-level pro', 'RoboFont for scripting'] },
+                { icon: 'fab fa-windows', color: 'blue', title: 'Windows (Advanced)', items: ['FontCreator for rich features', 'FontLab for pro work'] },
+                { icon: 'fab fa-osi', color: 'orange', title: 'Open Source Fans', items: ['FontForge for a powerful free tool'] },
+                { icon: 'fas fa-dollar-sign', color: 'yellow', title: 'Budget-Conscious', items: ['Many free options', 'Paid tools under €50'] },
+            ];
+            
+            const expressionData = [
+                { category: 'basic', title: 'Continuous Spin', code: 'time * 45', desc: 'Rotates the object 45° per second.', usage: 'Rotation' },
+                { category: 'basic', title: 'Random Jitter', code: 'wiggle(2, 30)', desc: '2 wiggles/sec, 30px/degree range.', usage: 'Position, Rotation, Scale' },
+                { category: 'loops', title: 'Seamless Loop', code: 'loopOut("cycle")', desc: 'Loops keyframes in a perfect cycle.', usage: 'Any property with 2+ keyframes' },
+                { category: 'loops', title: 'Ping Pong Loop', code: 'loopOut("pingpong")', desc: 'Moves back and forth between keyframes.', usage: 'Any property with keyframes' },
+                { category: 'effects', title: 'Smooth Fade', code: 'Math.sin(time * 2) * 50 + 50', desc: 'Gentle fade in/out loop (0-100%).', usage: 'Opacity' },
+                { category: 'effects', title: 'Breathing Effect', code: 's = Math.sin(time * 3) * 20 + 100; [s, s]', desc: 'Makes object pulse (80-120% scale).', usage: 'Scale' },
+                { category: 'basic', title: 'Floating Motion', code: 'y = Math.sin(time * 2) * 10; value + [0, y]', desc: 'Adds gentle up and down movement.', usage: 'Position' },
+                { category: 'advanced', title: 'Sequence Delay', code: 'valueAtTime(time - index * 0.2)', desc: 'Delays animation for each layer.', usage: 'Any animated property' },
+                { category: 'advanced', title: 'Unique Wiggle', code: 'seedRandom(index, true); wiggle(1, 20)', desc: 'Each layer wiggles differently.', usage: 'Position' },
+                { category: 'effects', title: 'Blinking Effect', code: 'Math.floor(time % 1) == 0 ? 100 : 0', desc: 'On/off blinking once per second.', usage: 'Opacity' },
+                { category: 'advanced', title: 'Layer Link', code: 'thisComp.layer("Null 1").transform.position', desc: 'Links property to another layer.', usage: 'Any transform property' },
+                { category: 'loops', title: 'Offset Loop', code: 'loopOut("offset")', desc: 'Repeats movement with offset.', usage: 'Position, Rotation, Scale' },
+            ];
 
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-magic"></i>
-            </div>
-            <h3>Motion Expressions</h3>
-            <p>Ready-to-use After Effects expressions for dynamic animations. Copy, paste, and bring your designs to life with professional motion graphics.</p>
-            <a href="motion.html" class="feature-link">View Expressions <i class="fas fa-arrow-right"></i></a>
-          </div>
+            // --- RENDER FUNCTIONS ---
+            function renderFontTable() {
+                const tableBody = document.querySelector('#fontTable tbody');
+                if (!tableBody) return;
+                tableBody.innerHTML = fontData.map(font => `
+                    <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors duration-150" data-tags="${font.tags}">
+                        <td class="p-4 font-semibold"><a href="${font.url}" target="_blank" rel="noopener" class="text-indigo-600 hover:underline">${font.name}</a></td>
+                        <td class="p-4">
+                            ${font.platform.map(p => `<span class="inline-block text-xs font-bold mr-1 px-2.5 py-0.5 rounded-full ${p === 'macos' ? 'bg-slate-200 text-slate-800' : p === 'windows' ? 'bg-blue-200 text-blue-800' : p === 'linux' ? 'bg-orange-200 text-orange-800' : p === 'web' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}">${p.charAt(0).toUpperCase() + p.slice(1)}</span>`).join('')}
+                        </td>
+                        <td class="p-4"><span class="font-semibold ${font.price === 'Free' ? 'text-green-600' : 'text-slate-700'}">${font.price}</span></td>
+                        <td class="p-4 text-slate-600 hidden md:table-cell">${font.notes}</td>
+                    </tr>
+                `).join('');
+            }
 
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <h3>Student-Friendly</h3>
-            <p>Curated recommendations for students and beginners, including free alternatives and budget-friendly options for learning design.</p>
-            <a href="fonts.html#recommendations" class="feature-link">See Recommendations <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
+            function renderRecommendations() {
+                const recGrid = document.querySelector('#page-fonts .recommendations-grid');
+                if (!recGrid) return;
+                const colorClasses = {
+                    green: 'text-green-500 bg-green-50 border-green-200',
+                    red: 'text-red-500 bg-red-50 border-red-200',
+                    slate: 'text-slate-500 bg-slate-50 border-slate-200',
+                    blue: 'text-blue-500 bg-blue-50 border-blue-200',
+                    orange: 'text-orange-500 bg-orange-50 border-orange-200',
+                    yellow: 'text-yellow-500 bg-yellow-50 border-yellow-200',
+                };
+                recGrid.innerHTML = recommendationData.map(rec => `
+                    <div class="bg-white p-6 rounded-xl border ${colorClasses[rec.color]}">
+                        <i class="${rec.icon} text-3xl mb-3"></i>
+                        <h3 class="text-lg font-bold mb-2">${rec.title}</h3>
+                        <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                            ${rec.items.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+            }
+            
+            function renderExpressions() {
+                const grid = document.getElementById('expressionsGrid');
+                if (!grid) return;
+                const categoryColors = {
+                    basic: 'border-blue-500',
+                    loops: 'border-green-500',
+                    effects: 'border-purple-500',
+                    advanced: 'border-red-500',
+                };
+                grid.innerHTML = expressionData.map(exp => `
+                    <div class="expression-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1" data-category="${exp.category}" data-search="${exp.title} ${exp.code} ${exp.desc} ${exp.category}">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-lg text-slate-800">${exp.title}</h3>
+                                <span class="text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${exp.category}</span>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1 mb-3">${exp.desc}</p>
+                            <pre class="expression-code bg-slate-800 text-slate-200 text-sm p-3 rounded-lg font-mono break-all cursor-pointer hover:bg-slate-700 transition-colors" onclick="copyExpression(this)"><code>${exp.code}</code></pre>
+                        </div>
+                        <div class="bg-slate-50 px-5 py-2 text-xs text-slate-500 border-t border-slate-200">
+                            <strong>Apply to:</strong> ${exp.usage}
+                        </div>
+                    </div>
+                `).join('');
+            }
 
-    <section class="stats">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-number">16+</div>
-            <div class="stat-label">Font Tools</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">20+</div>
-            <div class="stat-label">Motion Expressions</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Free Resource</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="cta">
-      <div class="container">
-        <div class="cta-content">
-          <h2>Ready to Create?</h2>
-          <p>Start exploring the tools that will elevate your design workflow</p>
-          <div class="cta-buttons">
-            <a href="fonts.html" class="btn btn-primary">Start with Fonts</a>
-            <a href="motion.html" class="btn btn-outline">Explore Motion</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+            // --- PAGE NAVIGATION ---
+            const pages = document.querySelectorAll('.page-content');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const jumperLinks = document.querySelectorAll('.nav-link-jumper');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <i class="fas fa-palette"></i>
-          <span>Design Tools Hub</span>
-        </div>
-        <p>A curated collection of design tools and resources for creative professionals.</p>
-        <div class="footer-links">
-          <a href="fonts.html">Font Tools</a>
-          <a href="motion.html">Motion Design</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.toggle('hidden', page.id !== `page-${pageId}`);
+                });
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.dataset.page === pageId);
+                });
+                window.location.hash = pageId;
+                window.scrollTo(0, 0);
+            }
 
-  <script src="script.js"></script>
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    showPage(pageId);
+                    mobileMenu.classList.add('hidden'); // Close mobile menu on click
+                });
+            });
+            
+            jumperLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    showPage(pageId);
+                });
+            });
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Handle initial page load from hash
+            const initialPage = window.location.hash.substring(1) || 'home';
+            showPage(initialPage);
+
+
+            // --- INTERACTIVITY ---
+            
+            // Copy expression
+            window.copyExpression = function(element) {
+                const text = element.textContent.trim();
+                navigator.clipboard.writeText(text).then(() => {
+                    const toast = document.getElementById('copyToast');
+                    toast.classList.remove('translate-y-20', 'opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-20', 'opacity-0');
+                    }, 2000);
+                }).catch(err => console.error('Failed to copy: ', err));
+            }
+
+            // Generic filter function
+            function setupFilter(inputId, containerSelector, itemSelector, filterButtonsId) {
+                const searchInput = document.getElementById(inputId);
+                const filterButtons = document.querySelectorAll(`#${filterButtonsId} .filter-btn`);
+
+                function performFilter() {
+                    if(!document.querySelector(`#${filterButtonsId} .filter-btn.bg-indigo-100`)) return;
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const activeFilter = document.querySelector(`#${filterButtonsId} .filter-btn.bg-indigo-100`).dataset.filter;
+                    const items = document.querySelectorAll(itemSelector);
+
+                    items.forEach(item => {
+                        const tags = (item.dataset.tags || item.dataset.category || '').toLowerCase();
+                        const searchData = (item.dataset.search || item.textContent).toLowerCase();
+                        
+                        const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+                        const matchesSearch = searchTerm === '' || searchData.includes(searchTerm);
+
+                        item.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
+                    });
+                }
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', performFilter);
+                }
+                
+                filterButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        filterButtons.forEach(b => {
+                            b.classList.remove('bg-indigo-100', 'text-indigo-700');
+                            b.classList.add('bg-slate-100', 'text-slate-700');
+                        });
+                        this.classList.add('bg-indigo-100', 'text-indigo-700');
+                        this.classList.remove('bg-slate-100', 'text-slate-700');
+                        performFilter();
+                    });
+                });
+            }
+            
+            // Table sorting
+            let sortDir = {};
+            window.sortTable = function(n) {
+                const table = document.getElementById('fontTable');
+                if (!table) return;
+                const tbody = table.tBodies[0];
+                const rows = Array.from(tbody.rows);
+                const dir = sortDir[n] === 'asc' ? 'desc' : 'asc';
+                sortDir[n] = dir;
+
+                rows.sort((a, b) => {
+                    let x = a.getElementsByTagName('TD')[n].textContent.toLowerCase();
+                    let y = b.getElementsByTagName('TD')[n].textContent.toLowerCase();
+                    // Handle numeric/price sorting
+                    if (n === 2) {
+                        x = x === 'free' || x === 'freemium' ? 0 : parseFloat(x.replace('€', ''));
+                        y = y === 'free' || y === 'freemium' ? 0 : parseFloat(y.replace('€', ''));
+                    }
+                    if (x < y) return dir === 'asc' ? -1 : 1;
+                    if (x > y) return dir === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                
+                rows.forEach(row => tbody.appendChild(row));
+
+                // Update sort icons
+                table.querySelectorAll('thead th i').forEach((icon, index) => {
+                    icon.className = 'fas fa-sort text-slate-400 ml-1';
+                    if (index === n) {
+                        icon.className = `fas fa-sort-${dir === 'asc' ? 'up' : 'down'} text-indigo-500 ml-1`;
+                    }
+                });
+            }
+
+            // --- INITIALIZE ---
+            renderFontTable();
+            renderRecommendations();
+            renderExpressions();
+            setupFilter('fontSearchInput', '#fontTable tbody', '#fontTable tbody tr', 'font-filter-buttons');
+            setupFilter('motionSearchInput', '#expressionsGrid', '.expression-card', 'motion-filter-buttons');
+        });
+    </script>
+
 </body>
 </html>
