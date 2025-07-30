@@ -50,6 +50,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#home" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 active" data-page="home">Home</a>
+                        <a href="#emerging" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-page="emerging">Emerging Tools</a>
                         <a href="#fonts" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-page="fonts">Font Tools</a>
                         <a href="#motion" class="nav-link text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-page="motion">Motion Design</a>
                     </div>
@@ -68,6 +69,7 @@
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 active" data-page="home">Home</a>
+                <a href="#emerging" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200" data-page="emerging">Emerging Tools</a>
                 <a href="#fonts" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200" data-page="fonts">Font Tools</a>
                 <a href="#motion" class="nav-link block text-indigo-200 hover:bg-indigo-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200" data-page="motion">Motion Design</a>
             </div>
@@ -88,14 +90,17 @@
                                 <span class="gradient-text">Design Tools Hub</span>
                             </h1>
                             <p class="text-lg text-slate-600 mb-6">
-                                Discover the best tools and resources for font design and motion graphics. From beginner-friendly options to professional-grade software.
+                                Discover the best tools and resources for emerging AI tools, font design, and motion graphics. From beginner-friendly options to professional-grade software.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                <a href="#emerging" data-page="emerging" class="nav-link-jumper bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center gap-2">
+                                    <i class="fas fa-rocket"></i> Emerging Tools
+                                </a>
                                 <a href="#fonts" data-page="fonts" class="nav-link-jumper bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 flex items-center justify-center gap-2">
-                                    <i class="fas fa-font"></i> Explore Font Tools
+                                    <i class="fas fa-font"></i> Font Tools
                                 </a>
                                 <a href="#motion" data-page="motion" class="nav-link-jumper bg-pink-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-pink-600 transition-all duration-200 flex items-center justify-center gap-2">
-                                    <i class="fas fa-play"></i> Motion Expressions
+                                    <i class="fas fa-play"></i> Motion Design
                                 </a>
                             </div>
                         </div>
@@ -111,7 +116,12 @@
                 <!-- Features Section -->
                 <section class="lg:col-span-3 bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
                     <h2 class="text-3xl font-bold text-center mb-8">What You'll Find Here</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl border border-purple-200 text-center hover:shadow-lg hover:border-purple-300 transition-all duration-300">
+                            <i class="fas fa-rocket text-4xl text-purple-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Emerging AI Tools</h3>
+                            <p class="text-slate-600">Latest AI-powered design tools for video generation, image creation, and UI prototyping.</p>
+                        </div>
                         <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-center hover:shadow-lg hover:border-indigo-300 transition-all duration-300">
                             <i class="fas fa-font text-4xl text-indigo-500 mb-4"></i>
                             <h3 class="text-xl font-bold mb-2">Font Design Tools</h3>
@@ -133,6 +143,10 @@
                 <!-- Stats Section -->
                 <section class="lg:col-span-1 bg-indigo-600 text-white p-8 rounded-2xl shadow-sm flex flex-col justify-center items-center text-center">
                     <div class="stat-item mb-6">
+                        <div class="text-5xl font-extrabold">25+</div>
+                        <div class="text-lg text-indigo-200">Emerging Tools</div>
+                    </div>
+                    <div class="stat-item mb-6">
                         <div class="text-5xl font-extrabold">16+</div>
                         <div class="text-lg text-indigo-200">Font Tools</div>
                     </div>
@@ -150,10 +164,47 @@
                 <section class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-center items-center text-center">
                     <h2 class="text-3xl font-bold mb-2">Ready to Create?</h2>
                     <p class="text-slate-600 mb-6">Start exploring the tools that will elevate your design workflow.</p>
-                    <a href="#fonts" data-page="fonts" class="nav-link-jumper bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 flex items-center gap-2">
-                        <i class="fas fa-rocket"></i> Get Started
+                    <a href="#emerging" data-page="emerging" class="nav-link-jumper bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 flex items-center gap-2">
+                        <i class="fas fa-rocket"></i> Explore Emerging Tools
                     </a>
                 </section>
+            </div>
+        </div>
+
+        <!-- Emerging Tools Page Content -->
+        <div id="page-emerging" class="page-content hidden">
+            <!-- Emerging Tools Header -->
+            <section class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white p-8 rounded-2xl shadow-lg mb-6">
+                <h1 class="text-4xl font-extrabold flex items-center gap-3"><i class="fas fa-rocket"></i> Emerging Design Tools 2025</h1>
+                <p class="opacity-90 mt-2">Cutting-edge AI-powered tools and innovative design platforms transforming the creative industry.</p>
+                <div class="flex flex-wrap gap-3 mt-4">
+                    <span class="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full">AI-Powered</span>
+                    <span class="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full">Latest 2025</span>
+                    <span class="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full">25+ Tools</span>
+                </div>
+            </section>
+            
+            <!-- Filter Controls -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
+                <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                    <div class="relative w-full md:w-1/3">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="emergingSearchInput" placeholder="Search tools..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
+                    </div>
+                    <div id="emerging-filter-buttons" class="flex flex-wrap gap-2 justify-center">
+                        <button class="filter-btn bg-purple-100 text-purple-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="all">All</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="ai-video">AI Video</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="ai-image">AI Image</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="ui-ux">UI/UX</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="3d">3D Design</button>
+                        <button class="filter-btn bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold" data-filter="open-source">Open Source</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Tools Grid -->
+            <div id="emergingToolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tool cards will be injected here by JS -->
             </div>
         </div>
 
@@ -252,7 +303,7 @@
                 <i class="fas fa-palette"></i>
                 <span>Design Tools Hub</span>
             </div>
-            <p>A curated collection of design tools and resources by <a href="https://jobinbennykutty.com/">Jobin Bennykutty</a>.</p>
+            <p>A curated collection of design tools and resources by <a href="https://jobinbennykutty.com/" class="text-indigo-400 hover:underline">Jobin Bennykutty</a>.</p>
             <p class="text-sm mt-4">&copy; 2024 Design Tools Hub. All Rights Reserved.</p>
         </div>
     </footer>
@@ -266,6 +317,37 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // --- DATA ---
+            
+            // Emerging tools data from CSV
+            const emergingToolsData = [
+                { name: 'Runway ML', description: 'AI-powered video and motion tool with Gen-3 Alpha, used for filmmaking, content creation, and style transfer.', url: 'https://runwayml.com', category: 'ai-video', tags: 'ai video motion filmmaking' },
+                { name: 'Dream Machine', description: 'AI video model by Luma Labs, generates realistic motion from prompts. Competes with Runway.', url: 'https://lumalabs.ai/dream-machine', category: 'ai-video', tags: 'ai video motion realistic' },
+                { name: 'Pika', description: 'Text/image to video AI generator. Supports style transfer and smooth motion transitions.', url: 'https://pika.art', category: 'ai-video', tags: 'ai video text-to-video style-transfer' },
+                { name: 'Sora (by OpenAI)', description: 'Experimental long-form video generation AI, capable of detailed, coherent scenes.', url: 'https://openai.com/sora', category: 'ai-video', tags: 'ai video openai experimental long-form' },
+                { name: 'Vizcom', description: 'Sketch-to-render tool for product and industrial designers. Fast, high-quality rendering.', url: 'https://www.vizcom.ai', category: 'ai-image', tags: 'sketch render product industrial design' },
+                { name: 'CreatiPoster', description: 'Generates editable, multi-layered design compositions. Useful for print, social, and motion graphics.', url: 'https://arxiv.org/abs/2506.10890', category: 'ai-image', tags: 'poster design print social motion' },
+                { name: 'Flux.1 Kontext', description: 'Expressive AI text-to-image model with depth, edge, and inpainting controls.', url: 'https://bfl.ai', category: 'ai-image', tags: 'ai text-to-image depth edge inpainting' },
+                { name: 'Moonchild.ai', description: 'AI ideation engine for product/campaign ideas. Outputs Figma-ready UX concepts.', url: 'https://moonchild.ai', category: 'ui-ux', tags: 'ai ideation product campaign figma ux' },
+                { name: 'Uizard', description: 'Sketch-to-UI prototyping tool. Converts notes or drawings into working app layouts.', url: 'https://uizard.io', category: 'ui-ux', tags: 'sketch ui prototyping app layouts' },
+                { name: 'Recraft', description: 'AI illustration and design tool with editable SVGs, brand-consistent outputs.', url: 'https://recraft.ai', category: 'ai-image', tags: 'ai illustration svg brand design' },
+                { name: 'Vectary', description: '3D design platform in browser for mockups and typography. Collaborates well with Adobe apps.', url: 'https://www.vectary.com', category: '3d', tags: '3d browser mockups typography adobe' },
+                { name: 'Adobe Aero', description: 'Tool to create interactive AR experiences from 2D designs. Works with Adobe ecosystem.', url: 'https://www.adobe.com/products/aero.html', category: '3d', tags: 'ar interactive adobe 2d designs' },
+                { name: 'Penpot', description: 'Open-source UI/UX design tool, real-time collaboration, Figma alternative.', url: 'https://penpot.app', category: 'open-source', tags: 'open-source ui ux collaboration figma alternative' },
+                { name: 'Affinity Designer 2', description: 'Vector + raster design tool with one-time pricing, Illustrator alternative.', url: 'https://affinity.serif.com', category: 'design-tools', tags: 'vector raster one-time pricing illustrator alternative' },
+                { name: 'Affinity Photo 2', description: 'Professional raster editor with advanced photo features. No subscription.', url: 'https://affinity.serif.com', category: 'design-tools', tags: 'raster photo editor professional no subscription' },
+                { name: 'Affinity Publisher 2', description: 'Page layout tool with seamless switching between Designer and Photo.', url: 'https://affinity.serif.com', category: 'design-tools', tags: 'page layout designer photo seamless' },
+                { name: 'CorelDRAW Graphics Suite 2025', description: 'Full vector/photo editing suite. Offers traditional license or subscription.', url: 'https://www.coreldraw.com', category: 'design-tools', tags: 'vector photo editing suite license subscription' },
+                { name: 'CorelDRAW Go', description: 'Web-based entry-level design tool by Corel. Accessible and cloud-native.', url: 'https://www.coreldraw.com/en/pages/go/', category: 'design-tools', tags: 'web entry-level corel cloud-native' },
+                { name: 'Blender', description: 'Open-source 3D/2D tool for modeling, animation, visual effects, Grease Pencil.', url: 'https://www.blender.org', category: 'open-source', tags: 'open-source 3d 2d modeling animation visual effects' },
+                { name: 'Gravit Designer', description: 'Vector editor with cloud sync, for layout, illustration, and icons.', url: 'https://www.designer.io', category: 'design-tools', tags: 'vector editor cloud sync layout illustration icons' },
+                { name: 'Sketch', description: 'macOS UI/UX design tool with plugins and real-time design libraries.', url: 'https://www.sketch.com', category: 'ui-ux', tags: 'macos ui ux plugins design libraries' },
+                { name: 'Inkscape', description: 'Free vector editor supporting mesh gradients, live path effects, SVG export.', url: 'https://inkscape.org', category: 'open-source', tags: 'free vector editor mesh gradients path effects svg' },
+                { name: 'GIMP', description: 'Free image editor for raster graphics and design, supports plugins and layers.', url: 'https://www.gimp.org', category: 'open-source', tags: 'free image editor raster graphics plugins layers' },
+                { name: 'Photopea', description: 'Web-based Photoshop alternative. Supports PSD, no install required.', url: 'https://www.photopea.com', category: 'design-tools', tags: 'web photoshop alternative psd no install' },
+                { name: 'Procreate', description: 'iPad-only illustration tool with responsive brush engine, no subscription.', url: 'https://procreate.com', category: 'design-tools', tags: 'ipad illustration brush engine no subscription' },
+                { name: 'VistaCreate', description: 'Design platform for social graphics and animations, beginner-friendly templates.', url: 'https://create.vista.com', category: 'design-tools', tags: 'social graphics animations beginner templates' }
+            ];
+
             const fontData = [
                 { name: 'Glyphs', url: 'https://glyphsapp.com', platform: ['macos'], price: '€300', type: 'Desktop', notes: 'Professional, industry standard', tags: 'macos paid desktop professional' },
                 { name: 'Glyphs Mini', url: 'https://glyphsapp.com', platform: ['macos'], price: '€40', type: 'Desktop', notes: 'Affordable entry version', tags: 'macos paid desktop beginner' },
@@ -305,6 +387,40 @@
             ];
 
             // --- RENDER FUNCTIONS ---
+            
+            function renderEmergingTools() {
+                const grid = document.getElementById('emergingToolsGrid');
+                if (!grid) return;
+                
+                const categoryColors = {
+                    'ai-video': { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', badge: 'bg-purple-100' },
+                    'ai-image': { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', badge: 'bg-blue-100' },
+                    'ui-ux': { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', badge: 'bg-green-100' },
+                    '3d': { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', badge: 'bg-orange-100' },
+                    'open-source': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', badge: 'bg-red-100' },
+                    'design-tools': { bg: 'bg-slate-50', border: 'border-slate-200', text: 'text-slate-700', badge: 'bg-slate-100' }
+                };
+                
+                grid.innerHTML = emergingToolsData.map(tool => {
+                    const colors = categoryColors[tool.category] || categoryColors['design-tools'];
+                    return `
+                        <div class="emerging-tool-card ${colors.bg} rounded-2xl shadow-sm border ${colors.border} overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1" data-category="${tool.category}" data-search="${tool.name} ${tool.description} ${tool.tags}">
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h3 class="font-bold text-lg ${colors.text}">${tool.name}</h3>
+                                    <span class="text-xs font-semibold uppercase px-2 py-1 rounded-full ${colors.badge} ${colors.text}">${tool.category.replace('-', ' ')}</span>
+                                </div>
+                                <p class="text-slate-600 text-sm mb-4 leading-relaxed">${tool.description}</p>
+                                <a href="${tool.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 ${colors.text} hover:underline font-medium text-sm">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Visit Tool
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
             function renderFontTable() {
                 const tableBody = document.querySelector('#fontTable tbody');
                 if (!tableBody) return;
@@ -433,16 +549,18 @@
                 const filterButtons = document.querySelectorAll(`#${filterButtonsId} .filter-btn`);
 
                 function performFilter() {
-                    if(!document.querySelector(`#${filterButtonsId} .filter-btn.bg-indigo-100`)) return;
+                    const activeFilterBtn = document.querySelector(`#${filterButtonsId} .filter-btn.bg-purple-100, #${filterButtonsId} .filter-btn.bg-indigo-100`);
+                    if(!activeFilterBtn) return;
+                    
                     const searchTerm = searchInput.value.toLowerCase();
-                    const activeFilter = document.querySelector(`#${filterButtonsId} .filter-btn.bg-indigo-100`).dataset.filter;
+                    const activeFilter = activeFilterBtn.dataset.filter;
                     const items = document.querySelectorAll(itemSelector);
 
                     items.forEach(item => {
                         const tags = (item.dataset.tags || item.dataset.category || '').toLowerCase();
                         const searchData = (item.dataset.search || item.textContent).toLowerCase();
                         
-                        const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+                        const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter) || item.dataset.category === activeFilter;
                         const matchesSearch = searchTerm === '' || searchData.includes(searchTerm);
 
                         item.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
@@ -455,12 +573,14 @@
                 
                 filterButtons.forEach(btn => {
                     btn.addEventListener('click', function() {
+                        const isEmergingPage = filterButtonsId === 'emerging-filter-buttons';
+                        const activeClass = isEmergingPage ? 'bg-purple-100 text-purple-700' : 'bg-indigo-100 text-indigo-700';
+                        const inactiveClass = 'bg-slate-100 text-slate-700';
+                        
                         filterButtons.forEach(b => {
-                            b.classList.remove('bg-indigo-100', 'text-indigo-700');
-                            b.classList.add('bg-slate-100', 'text-slate-700');
+                            b.className = `filter-btn ${inactiveClass} px-4 py-1.5 rounded-full text-sm font-semibold`;
                         });
-                        this.classList.add('bg-indigo-100', 'text-indigo-700');
-                        this.classList.remove('bg-slate-100', 'text-slate-700');
+                        this.className = `filter-btn ${activeClass} px-4 py-1.5 rounded-full text-sm font-semibold`;
                         performFilter();
                     });
                 });
@@ -501,9 +621,12 @@
             }
 
             // --- INITIALIZE ---
+            renderEmergingTools();
             renderFontTable();
             renderRecommendations();
             renderExpressions();
+            
+            setupFilter('emergingSearchInput', '#emergingToolsGrid', '.emerging-tool-card', 'emerging-filter-buttons');
             setupFilter('fontSearchInput', '#fontTable tbody', '#fontTable tbody tr', 'font-filter-buttons');
             setupFilter('motionSearchInput', '#expressionsGrid', '.expression-card', 'motion-filter-buttons');
         });
