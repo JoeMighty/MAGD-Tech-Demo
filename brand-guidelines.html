@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Guidelines Builder - Design Tools Hub</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        import React, { useState } from 'react';
+import { ArrowRight, ArrowLeft, Upload, Plus, X, Download, Check } from 'lucide-react';
+
+export default function BrandGuidelinesBuilder() {
+  const [step, setStep] = useState(0);
+  const [formData, setFormData] = useState({
+    userName: '',
+    brandName: '',
+    logos: {},
+    colors: [],
+    primaryFont: '',
+    secondaryFont: '',
+    fontFiles: {},
+    toneOfVoice: '',
+    imageExamples: []
+  });
+
+  const steps = [
+    'User Info',
+    'Logos',
+    'Colors',
+    'Typography',
+    'Tone of Voice',
+    'Image Guidelines',
+    'Review & Export'
+  ];
+
+  const handleNext = () => {
+    if (step < steps.length - 1) setStep(step + 1);
+  };
+
+  const handleBack = () => {
+    if (step > 0) setStep(step - 1);
+  };
+
+  const handleLogoUpload = (type, e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData(prev => ({
+          ...prev,
+          logos: { ...prev.logos, [type]: event.target.result }
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const addColor = () => {
+    setFormData(prev => ({
+      ...prev,
+      colors: [...prev.colors, { hex: '#000000', name: '' }]
+    }));
+  };
+
+  const updateColor = (index, field, value) => {
+    const newColors = [...formData.colors];
+    newColors[index][field] = value;
+    setFormData(prev => ({ ...prev, colors: newColors }));
+  };
+
+  const removeColor = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      colors: prev.colors.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData(prev => ({
+          ...prev,
+          imageExamples: [...prev.imageExamples, event.target.result]
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      imageExamples: prev.imageExamples.filter((_, i) => i !== index)
+    }));
+  };
+
+  const generatePDF = () => {
+    alert(`PDF generation initiated!\n\nIn a production version, this would create a styled PDF using your brand colors and fonts.`);
+  };
+
+  const logoTypes = [
+    { key: 'color', label: 'Color Logo' },
+    { key: 'blackWhite', label: 'Black & White' },
+    { key: 'rgb', label: 'RGB Version' },
+    { key: 'cmyk', label: 'CMYK Version' },
+    { key: 'retina', label: 'Retina/High-res' },
+    { key: 'stacked', label: 'Stacked' },
+    { key: 'horizontal', label: 'Horizontal' },
+    { key: 'icon', label: 'Icon/Symbol' }
+  ];
+
+  const googleFonts = [
+    'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Oswald', 
+    'Raleway', 'Poppins', 'Merriweather', 'Playfair Display', 'Inter',
+    'Source Sans Pro', 'Nunito', 'Ubuntu', 'PT Sans', 'Rubik',
+    'Work Sans', 'DM Sans', 'Manrope', 'Space Grotesk', 'Plus Jakarta Sans',
+    'Outfit', 'Figtree', 'Karla', 'Quicksand', 'Mulish',
+    'Barlow', 'Heebo', 'Cabin', 'Archivo', 'Hind',
+    'Jost', 'Bitter', 'Crimson Text', 'Literata', 'EB Garamond',
+    'Cormorant', 'Spectral', 'Cardo', 'Libre Baskerville', 'Lora'
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">Brand Guidelines Builder</h1>
+          <p className="text-slate-600">Create professional brand guidelines in minutes</p>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            {steps.map((s, i) => (
+              <div key={i} className="flex items-center flex-1">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                  i <= step ? 'bg-blue-600 text-white' : 'bg-slate-300 text-slate-600'
+                }`}>
+                  {i < step ? <Check size={16} /> : i + 1}
+                </div>
+                {i < steps.length - 1 && (
+                  <div className={`flex-1 h-1 mx-2 ${i < step ? 'bg-blue-600' : 'bg-slate-300'}`} />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between text-xs text-slate-600 px-4">
+            {steps.map((s, i) => (
+              <span key={i} className={i === step ? 'font-semibold text-blue-600' : ''}>{s}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="bg-white rounded-2xl shadow-xl p-8 min-h-[500px]">
+          {/* Step 0: User Info */}
+          {step === 0 && (
+            <div className="max-w-2xl mx-auto space-y-6">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Let's Get Started</h2>
+              
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Your Name</label>
+                <input
+                  type="text"
+                  value={formData.userName}
+                  onChange={(e) => setFormData({...formData, userName: e.target.value})}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Brand Name</label>
+                <input
+                  type="text"
+                  value={formData.brandName}
+                  onChange={(e) => setFormData({...formData, brandName: e.target.value})}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your brand name"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 1: Logos */}
+          {step === 1 && (
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Upload Your Logos</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {logoTypes.map(({ key, label }) => (
+                  <div key={key} className="border-2 border-dashed border-slate-300 rounded-lg p-4 hover:border-blue-500 transition">
+                    <label className="cursor-pointer block">
+                      <div className="text-center">
+                        {formData.logos[key] ? (
+                          <img src={formData.logos[key]} alt={label} className="w-full h-32 object-contain mb-2" />
+                        ) : (
+                          <div className="w-full h-32 flex items-center justify-center mb-2">
+                            <Upload className="text-slate-400" size={32} />
+                          </div>
+                        )}
+                        <span className="text-sm font-medium text-slate-700">{label}</span>
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleLogoUpload(key, e)}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Colors */}
+          {step === 2 && (
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Brand Colors</h2>
+              <div className="space-y-4 mb-6">
+                {formData.colors.map((color, index) => (
+                  <div key={index} className="flex items-center gap-4 bg-slate-50 p-4 rounded-lg">
+                    <input
+                      type="color"
+                      value={color.hex}
+                      onChange={(e) => updateColor(index, 'hex', e.target.value)}
+                      className="w-16 h-16 rounded cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={color.hex}
+                      onChange={(e) => updateColor(index, 'hex', e.target.value)}
+                      className="px-4 py-2 border border-slate-300 rounded-lg w-32"
+                      placeholder="#000000"
+                    />
+                    <input
+                      type="text"
+                      value={color.name}
+                      onChange={(e) => updateColor(index, 'name', e.target.value)}
+                      className="flex-1 px-4 py-2 border border-slate-300 rounded-lg"
+                      placeholder="Color name (e.g., Primary Blue)"
+                    />
+                    <button
+                      onClick={() => removeColor(index)}
+                      className="p-2 text-red-600 hover:bg-red-50 rounded"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={addColor}
+                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              >
+                <Plus size={20} />
+                Add Color
+              </button>
+            </div>
+          )}
+
+          {/* Step 3: Typography */}
+          {step === 3 && (
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Typography</h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Primary Font</label>
+                  <select
+                    value={formData.primaryFont}
+                    onChange={(e) => setFormData({...formData, primaryFont: e.target.value})}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="">Select from Google Fonts</option>
+                    {googleFonts.map(font => (
+                      <option key={font} value={font}>{font}</option>
+                    ))}
+                  </select>
+                  <p className="text-sm text-slate-500 mt-2">Or upload a custom font:</p>
+                  <input
+                    type="file"
+                    accept=".ttf,.otf,.woff,.woff2"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) setFormData({...formData, primaryFont: file.name});
+                    }}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Secondary Font</label>
+                  <select
+                    value={formData.secondaryFont}
+                    onChange={(e) => setFormData({...formData, secondaryFont: e.target.value})}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="">Select from Google Fonts</option>
+                    {googleFonts.map(font => (
+                      <option key={font} value={font}>{font}</option>
+                    ))}
+                  </select>
+                  <p className="text-sm text-slate-500 mt-2">Or upload a custom font:</p>
+                  <input
+                    type="file"
+                    accept=".ttf,.otf,.woff,.woff2"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) setFormData({...formData, secondaryFont: file.name});
+                    }}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: Tone of Voice */}
+          {step === 4 && (
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Tone of Voice</h2>
+              <textarea
+                value={formData.toneOfVoice}
+                onChange={(e) => setFormData({...formData, toneOfVoice: e.target.value})}
+                className="w-full h-64 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Describe your brand's tone of voice. For example:&#10;&#10;• Professional yet approachable&#10;• Clear and confident&#10;• Empathetic and supportive&#10;• Avoid jargon and complex terminology"
+              />
+            </div>
+          )}
+
+          {/* Step 5: Image Guidelines */}
+          {step === 5 && (
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Image Use Examples</h2>
+              
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                {formData.imageExamples.map((img, index) => (
+                  <div key={index} className="relative group">
+                    <img src={img} alt={`Example ${index + 1}`} className="w-full h-48 object-cover rounded-lg" />
+                    <button
+                      onClick={() => removeImage(index)}
+                      className="absolute top-2 right-2 p-2 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+                
+                <label className="border-2 border-dashed border-slate-300 rounded-lg h-48 flex items-center justify-center cursor-pointer hover:border-blue-500 transition">
+                  <div className="text-center">
+                    <Upload className="text-slate-400 mx-auto mb-2" size={32} />
+                    <span className="text-sm text-slate-600">Upload Image</span>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Step 6: Review & Export */}
+          {step === 6 && (
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Review & Export</h2>
+              
+              <div className="space-y-6 mb-8">
+                <div className="bg-slate-50 p-6 rounded-lg">
+                  <h3 className="font-bold text-lg mb-2">Brand Information</h3>
+                  <p><strong>Brand Name:</strong> {formData.brandName || 'Not set'}</p>
+                  <p><strong>Created by:</strong> {formData.userName || 'Not set'}</p>
+                </div>
+
+                <div className="bg-slate-50 p-6 rounded-lg">
+                  <h3 className="font-bold text-lg mb-2">Logos</h3>
+                  <p>{Object.keys(formData.logos).length} logo versions uploaded</p>
+                </div>
+
+                <div className="bg-slate-50 p-6 rounded-lg">
+                  <h3 className="font-bold text-lg mb-2">Brand Colors</h3>
+                  <div className="flex gap-2 mt-2">
+                    {formData.colors.map((color, i) => (
+                      <div key={i} className="flex flex-col items-center">
+                        <div
+                          className="w-16 h-16 rounded-lg border border-slate-300"
+                          style={{ backgroundColor: color.hex }}
+                        />
+                        <span className="text-xs mt-1">{color.name || color.hex}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-slate-50 p-6 rounded-lg">
+                  <h3 className="font-bold text-lg mb-2">Typography</h3>
+                  <p><strong>Primary:</strong> {formData.primaryFont || 'Not set'}</p>
+                  <p><strong>Secondary:</strong> {formData.secondaryFont || 'Not set'}</p>
+                </div>
+              </div>
+
+              <div className="border-t pt-6">
+                <h3 className="font-bold text-lg mb-4">Download Your Guidelines</h3>
+                <button
+                  onClick={generatePDF}
+                  className="flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-lg font-semibold"
+                >
+                  <Download size={24} />
+                  Download PDF Guidelines
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={handleBack}
+            disabled={step === 0}
+            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition ${
+              step === 0
+                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                : 'bg-slate-700 text-white hover:bg-slate-800'
+            }`}
+          >
+            <ArrowLeft size={20} />
+            Back
+          </button>
+
+          {step < steps.length - 1 && (
+            <button
+              onClick={handleNext}
+              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold transition"
+            >
+              Next
+              <ArrowRight size={20} />
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+    </script>
+</body>
+</html>
