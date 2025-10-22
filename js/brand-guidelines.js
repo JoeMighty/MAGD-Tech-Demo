@@ -210,25 +210,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="text-gray-600">Upload different versions of your logo for various use cases.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="logoGrid">
-                    ${logoTypes.map(logoType => `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${logoTypes.map(type => `
                         <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 hover:border-purple-400 transition">
-                            <label class="cursor-pointer">
-                                <div class="text-center">
-                                    ${formData.logos[logoType.key] ? `
-                                        <img src="${formData.logos[logoType.key]}" class="w-full h-32 object-contain mb-3 rounded" alt="${logoType.label}">
-                                        <p class="text-sm text-green-600 font-medium"><i class="fas fa-check-circle mr-1"></i> Uploaded</p>
-                                    ` : `
-                                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
-                                        <p class="text-sm font-semibold text-gray-700">${logoType.label}</p>
-                                        <p class="text-xs text-gray-500 mt-1">Click to upload</p>
-                                    `}
+                            <label class="cursor-pointer block">
+                                <div class="text-center mb-4">
+                                    <i class="fas fa-image text-gray-400 text-4xl mb-2"></i>
+                                    <p class="font-semibold text-gray-700">${type.label}</p>
                                 </div>
+                                ${formData.logos[type.key] ? `
+                                    <img src="${formData.logos[type.key]}" alt="${type.label}" class="w-full h-32 object-contain bg-gray-50 rounded-lg" />
+                                ` : ''}
                                 <input
                                     type="file"
                                     accept="image/*"
                                     class="hidden"
-                                    data-logo-type="${logoType.key}"
+                                    data-logo-type="${type.key}"
                                 />
                             </label>
                         </div>
@@ -237,22 +234,19 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        // Add event listeners for file uploads
-        document.querySelectorAll('input[type="file"][data-logo-type]').forEach(input => {
-            input.addEventListener('change', (e) => handleLogoUpload(e.target.dataset.logoType, e));
+        document.querySelectorAll('input[data-logo-type]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        formData.logos[e.target.dataset.logoType] = event.target.result;
+                        renderStep();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
-    }
-
-    function handleLogoUpload(type, event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                formData.logos[type] = e.target.result;
-                renderStep(); // Re-render to show uploaded image
-            };
-            reader.readAsDataURL(file);
-        }
     }
 
     function renderColorsStep(container) {
@@ -262,34 +256,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">Brand Colors</h2>
                     <p class="text-gray-600">Define your brand's color palette.</p>
                 </div>
-
-                <div id="colorsContainer" class="space-y-4 mb-6">
+                
+                <div class="space-y-4 mb-6">
                     ${formData.colors.map((color, index) => `
                         <div class="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
                             <input
                                 type="color"
                                 value="${color.hex}"
-                                class="w-16 h-16 rounded-lg border-2 border-gray-300 cursor-pointer"
                                 data-color-index="${index}"
-                                data-field="hex"
+                                class="w-16 h-16 rounded-lg border-2 border-gray-300 cursor-pointer"
                             />
                             <input
                                 type="text"
                                 value="${color.name}"
-                                placeholder="Color name (e.g., Primary Blue)"
-                                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                data-color-index="${index}"
-                                data-field="name"
+                                placeholder="Color name"
+                                data-color-name-index="${index}"
+                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             />
                             <input
                                 type="text"
                                 value="${color.hex}"
-                                class="w-28 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent font-mono text-sm"
-                                data-color-index="${index}"
-                                data-field="hex"
+                                data-color-hex-index="${index}"
+                                class="w-24 px-4 py-2 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             />
                             <button
-                                class="px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                                class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
                                 data-remove-color="${index}"
                             >
                                 <i class="fas fa-trash"></i>
@@ -300,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 <button
                     id="addColorBtn"
-                    class="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition shadow-md hover:shadow-lg"
+                    class="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition shadow-md"
                 >
                     <i class="fas fa-plus"></i>
                     Add Color
@@ -308,64 +299,73 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        document.getElementById('addColorBtn').addEventListener('click', addColor);
-        
+        document.getElementById('addColorBtn').addEventListener('click', () => {
+            formData.colors.push({ hex: '#000000', name: '' });
+            renderStep();
+        });
+
         document.querySelectorAll('input[data-color-index]').forEach(input => {
             input.addEventListener('input', (e) => {
                 const index = parseInt(e.target.dataset.colorIndex);
-                const field = e.target.dataset.field;
-                formData.colors[index][field] = e.target.value;
-                
-                // Update both hex inputs if one changes
-                if (field === 'hex') {
-                    renderStep();
+                formData.colors[index].hex = e.target.value;
+                const hexInput = document.querySelector(`input[data-color-hex-index="${index}"]`);
+                if (hexInput) hexInput.value = e.target.value;
+            });
+        });
+
+        document.querySelectorAll('input[data-color-name-index]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const index = parseInt(e.target.dataset.colorNameIndex);
+                formData.colors[index].name = e.target.value;
+            });
+        });
+
+        document.querySelectorAll('input[data-color-hex-index]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const index = parseInt(e.target.dataset.colorHexIndex);
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    formData.colors[index].hex = e.target.value;
+                    const colorInput = document.querySelector(`input[data-color-index="${index}"]`);
+                    if (colorInput) colorInput.value = e.target.value;
                 }
             });
         });
 
         document.querySelectorAll('button[data-remove-color]').forEach(button => {
             button.addEventListener('click', (e) => {
-                const index = parseInt(e.target.dataset.removeColor);
+                const index = parseInt(e.target.closest('button').dataset.removeColor);
                 formData.colors.splice(index, 1);
                 renderStep();
             });
         });
     }
 
-    function addColor() {
-        formData.colors.push({ hex: '#000000', name: '' });
-        renderStep();
-    }
-
     function renderTypographyStep(container) {
-        const styleLabels = {
-            h1: 'Heading 1',
-            h2: 'Heading 2',
-            h3: 'Heading 3',
-            paragraph: 'Paragraph'
-        };
-
         container.innerHTML = `
             <div>
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">Typography</h2>
-                    <p class="text-gray-600">Define your brand's text styles.</p>
+                    <p class="text-gray-600">Define font styles for different text elements.</p>
                 </div>
-
+                
                 <div class="space-y-6">
-                    ${Object.keys(formData.typography).map(styleKey => {
+                    ${Object.entries({
+                        h1: 'Heading 1',
+                        h2: 'Heading 2',
+                        h3: 'Heading 3',
+                        paragraph: 'Paragraph'
+                    }).map(([styleKey, label]) => {
                         const style = formData.typography[styleKey];
                         return `
-                            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-100">
-                                <h3 class="font-bold text-lg mb-4 text-gray-900">${styleLabels[styleKey]}</h3>
-                                
+                            <div class="bg-gray-50 p-6 rounded-xl">
+                                <h3 class="font-semibold text-lg mb-4">${label}</h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Font Family</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Font Family</label>
                                         <select
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                            data-style="${styleKey}"
-                                            data-field="font"
+                                            data-typography="${styleKey}"
+                                            data-property="font"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                                         >
                                             <option value="">Select font</option>
                                             ${googleFonts.map(font => `
@@ -373,48 +373,38 @@ document.addEventListener('DOMContentLoaded', function() {
                                             `).join('')}
                                         </select>
                                     </div>
-
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Size (px)</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Size (px)</label>
                                         <input
                                             type="number"
                                             value="${style.size}"
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                            data-style="${styleKey}"
-                                            data-field="size"
+                                            data-typography="${styleKey}"
+                                            data-property="size"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                                         />
                                     </div>
-
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Weight</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Weight</label>
                                         <select
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                            data-style="${styleKey}"
-                                            data-field="weight"
+                                            data-typography="${styleKey}"
+                                            data-property="weight"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                                         >
                                             ${fontWeights.map(weight => `
                                                 <option value="${weight.value}" ${style.weight === weight.value ? 'selected' : ''}>${weight.label}</option>
                                             `).join('')}
                                         </select>
                                     </div>
-
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Color</label>
                                         <input
                                             type="color"
                                             value="${style.color}"
-                                            class="w-full h-12 rounded-lg border-2 border-gray-300 cursor-pointer"
-                                            data-style="${styleKey}"
-                                            data-field="color"
+                                            data-typography="${styleKey}"
+                                            data-property="color"
+                                            class="w-full h-10 rounded-lg border border-gray-300 cursor-pointer"
                                         />
                                     </div>
-                                </div>
-
-                                <div class="mt-4 p-4 bg-white rounded-lg">
-                                    <p class="text-sm text-gray-500 mb-2">Preview:</p>
-                                    <p style="font-family: ${style.font || 'inherit'}; font-size: ${style.size}px; font-weight: ${style.weight}; color: ${style.color}">
-                                        ${styleLabels[styleKey]} Preview Text
-                                    </p>
                                 </div>
                             </div>
                         `;
@@ -423,30 +413,31 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        document.querySelectorAll('[data-style]').forEach(input => {
-            input.addEventListener('change', (e) => {
-                const style = e.target.dataset.style;
-                const field = e.target.dataset.field;
-                formData.typography[style][field] = e.target.value;
-                renderStep(); // Re-render to update preview
+        document.querySelectorAll('[data-typography]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const styleKey = e.target.dataset.typography;
+                const property = e.target.dataset.property;
+                formData.typography[styleKey][property] = e.target.value;
             });
         });
     }
 
     function renderToneOfVoiceStep(container) {
         container.innerHTML = `
-            <div>
+            <div class="max-w-2xl mx-auto">
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">Tone of Voice</h2>
-                    <p class="text-gray-600">Define how your brand communicates.</p>
+                    <p class="text-gray-600">Describe how your brand communicates with its audience.</p>
                 </div>
+                
                 <textarea
                     id="toneOfVoice"
-                    class="w-full h-64 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    rows="12"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
                     placeholder="Describe your brand's tone of voice. For example:
 
-• Professional yet approachable
-• Clear and confident
+• Friendly and approachable
+• Professional yet conversational
 • Empathetic and supportive
 • Avoid jargon and complex terminology"
                 >${formData.toneOfVoice}</textarea>
@@ -499,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.querySelectorAll('button[data-remove-image]').forEach(button => {
             button.addEventListener('click', (e) => {
-                const index = parseInt(e.target.dataset.removeImage);
+                const index = parseInt(e.target.closest('button').dataset.removeImage);
                 formData.imageExamples.splice(index, 1);
                 renderStep();
             });
@@ -520,7 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderReviewStep(container) {
         container.innerHTML = `
-            <div>
+            <div id="pdfPreviewContent">
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">Review & Export</h2>
                     <p class="text-gray-600">Review your brand guidelines and download the PDF.</p>
@@ -621,7 +612,96 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('downloadPdfBtn').addEventListener('click', generatePDF);
     }
 
-    function generatePDF() {
-        alert('PDF generation initiated!\n\nIn a production version, this would create a styled PDF using your brand colors and fonts.\n\nYou can implement this using libraries like jsPDF or html2pdf.js.');
+    async function generatePDF() {
+        const btn = document.getElementById('downloadPdfBtn');
+        const originalHTML = btn.innerHTML;
+        
+        // Show loading state
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating PDF...';
+        
+        try {
+            // Check if jsPDF is loaded
+            if (typeof window.jspdf === 'undefined') {
+                throw new Error('PDF library not loaded. Please refresh the page and try again.');
+            }
+            
+            const { jsPDF } = window.jspdf;
+            
+            // Get the content to export
+            const content = document.getElementById('pdfPreviewContent');
+            
+            // Convert HTML to canvas
+            const canvas = await html2canvas(content, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            });
+            
+            // Create PDF
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+            
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 297; // A4 height in mm
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+            
+            // Add first page
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+            
+            // Add additional pages if needed
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            
+            // Save the PDF
+            const filename = `${formData.brandName.replace(/\s+/g, '_') || 'Brand'}_Guidelines.pdf`;
+            pdf.save(filename);
+            
+            showNotification('PDF downloaded successfully!', 'success');
+            
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            showNotification('Error generating PDF: ' + error.message, 'error');
+        } finally {
+            // Restore button
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+        }
+    }
+
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-xl text-white transform transition-all duration-300 ${
+            type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        }`;
+        notification.innerHTML = `
+            <div class="flex items-center gap-3">
+                <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => notification.style.transform = 'translateX(0)', 10);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
 });
